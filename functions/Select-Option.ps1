@@ -10,7 +10,7 @@
     Array with options to prompt user with.
 
 .OUTPUTS
-    System.Int 
+    System.Int
     The respective index of the numerical key chosen. Not the numerical key itself, but the index of the element corresponding to numerical key chosen.
 
 .EXAMPLE
@@ -19,7 +19,7 @@
     get-Menu $array
     (Console)
 
-          Choose an option below:     
+          Choose an option below:
     ----------------------------------
     1. option1
     2. option2
@@ -37,7 +37,8 @@ Function get-Menu
     Param
     (
         [Parameter(Mandatory=$true)]
-        [string[]] $options
+        [string[]] $options,
+        [string] $message
     )
     Process
     {
@@ -47,9 +48,10 @@ Function get-Menu
         $choice = "placeholder"
         while (!(is_Numeric $choice) -or $choice -lt 0 -or $choice -gt $options.Count ){
             clear-Host
-            Write-host "      Choose an option below:     " -foregroundcolor Cyan
+            Write-host $message -foregroundcolor Cyan
+            #Write-host "      Choose an option below:     " -foregroundcolor Cyan
             Write-host "----------------------------------"
-            
+
             For ($i = 0; $i -lt $options.Count; $i++)
             {
                 Write-host "$($i+1). $($options[$i])"
@@ -70,5 +72,5 @@ Function get-Menu
 
 
 #FOR TESTING ONLY
-$array = @("egeg","adadad","egsegergs","ghkwefgkuwr","w;ekfhekfhkjwehf","fgjwrgfjwfj")
-get-Menu $array
+#$array = @("egeg","adadad","egsegergs","ghkwefgkuwr","w;ekfhekfhkjwehf","fgjwrgfjwfj")
+#get-Menu $array

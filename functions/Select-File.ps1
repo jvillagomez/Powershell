@@ -5,6 +5,10 @@
 .DESCRIPTION
     A file explorer window opens, when function is instantiated. Function returns complete path to file chosen.
 
+.PARAMETER Name
+    NONE
+    A parameter can be implemented to determine where file explorer window opens (root dir). Default is set to "Desktop".
+
 .OUTPUTS
     System.String
     The string conatins the path to file chosen.
