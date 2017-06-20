@@ -1,19 +1,25 @@
 <#
 .SYNOPSIS
-    Prompts the user with a menu.
+    Opens a file explorer window to allow user to select a directory.
 
 .DESCRIPTION
-    This will output a menu to the console, displaying array elements as numerical options. Pormpt isd persistent. If an invalid option is chosen, prompt will re-run until a proper option has been chosen.
+    A file explorer window opens, whne function is instantiated. Function returns path to directory chosen.
 
 .PARAMETER Name
-    [string[]] $options
-    Array with options to prompt user with.
+    NONE
+    A parameter can be implemented to determine where file explorer window opens (root dir). Default is set to "Desktop".
 
 .OUTPUTS
-    System.Int
-    The respective index of the numerical key chosen. Not the numerical key itself, but the index of the element corresponding to numerical key chosen.
+    System.String
+    The string conatins the path to directory chosen.
 
 .EXAMPLE
+    $path = Select-Folder
+
+    #Dialog window opens
+    #User navigates and chooses DIR of interest
+
+    Write-Host $path  #Output = > "C:\some\path\that\you\choose"
 
 #>
 

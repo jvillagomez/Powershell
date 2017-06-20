@@ -3,7 +3,7 @@
     Prompts the user with a menu.
 
 .DESCRIPTION
-    This will output a menu to the console, displaying array elements as numerical options. 
+    This will output a menu to the console, displaying array elements as numerical options. Pormpt isd persistent. If an invalid option is chosen, prompt will re-run until a proper option has been chosen.
 
 .PARAMETER Name
     [string[]] $options
