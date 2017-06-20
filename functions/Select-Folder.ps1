@@ -14,13 +14,12 @@
     The string conatins the path to directory chosen.
 
 .EXAMPLE
-    $path = Select-Folder
+    $dirPath = Select-Folder
 
     #Dialog window opens
     #User navigates and chooses DIR of interest
 
-    Write-Host $path  #Output = > "C:\some\path\that\you\choose"
-
+    Write-Host $dirPath  #Output = > "C:\some\path\that\you\choose"
 #>
 
 Function Select-Folder
@@ -28,24 +27,23 @@ Function Select-Folder
     Param
     (
         [string] $Description = "Select Folder",
-        [string]$RootFolder="Desktop"
+        [string] $RootFolder="Desktop"
     )
-
-    [System.Reflection.Assembly]::LoadWithPartialName("System.windows.forms") | Out-Null
-
-    $objForm = New-Object System.Windows.Forms.FolderBrowserDialog
-    $objForm.Rootfolder = $RootFolder
-    $objForm.Description = $Description
-    $Show = $objForm.ShowDialog()
-    If ($Show -eq "OK")
+    Process
     {
-        Return $objForm.SelectedPath
-    }
-    Else
-    {
-        Write-Error "Operation cancelled by user."
+        [System.Reflection.Assembly]::LoadWithPartialName("System.windows.forms") | Out-Null
+
+        $objForm = New-Object System.Windows.Forms.FolderBrowserDialog
+        $objForm.Rootfolder = $RootFolder
+        $objForm.Description = $Description
+        $Show = $objForm.ShowDialog()
+        If ($Show -eq "OK")
+        {
+            Return $objForm.SelectedPath
+        }
+        Else
+        {
+            Write-Error "Operation cancelled by user."
+        }
     }
 }
-
-
-Select-Folder
