@@ -10,9 +10,7 @@ Function Get-LicensedUsers
 
     Process
     {
-        . "C:\Users\jvillagomez\OneDrive - ucx.ucr.edu\dave\functions\Connect-365.ps1"
-        . "C:\Users\jvillagomez\OneDrive - ucx.ucr.edu\dave\functions\Get-Licenses.ps1"
-        Connect-Msol
+        Import-Module "C:\functions\powershell\functions\DIT.psm1"
 
         $Valid_Licenses = Get-Licenses
         if ($LicenseName)
@@ -35,3 +33,5 @@ Function Get-LicensedUsers
         }
     }
 }
+
+Get-LicensedUsers

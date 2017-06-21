@@ -71,5 +71,3 @@ Function Select-User
         }
     }
 }
-
-Select-User
