@@ -1,26 +1,29 @@
-function Get-ScriptTitles
-{
-    $dir = "C:\powershell\powershell\NewMenu\Licensing\Scripts"
-    $fileCount = (Get-ChildItem $dir).Count
-    $titles = @()
-    foreach ($scriptFile in get-childitem $dir)
-    {
-        $title = ((get-content "$($scriptFile.DirectoryName)\$($scriptFile.Name)")[0 .. 10] | select-string -pattern "Title:").ToString()
-        $titles += $title.Trimstart("Title: ")
-    }
+#=========================================================================
+$Module = ((get-item $PSScriptRoot).parent.FullName)+"\functions\DIT.psm1"
+Import-Module $Module
+#=========================================================================
+Connect-Msol
 
-    if($fileCount -ne $titles.Count)
+function License-Menu
+{
+    $dir = "$PSScriptRoot\Scripts"
+
+    $titles = Get-ScriptTitles $dir
+    $prompt = "Licensing Menu"
+
+    $choice = Select-Option $titles $prompt
+
+    Invoke-Script $dir $choice
+
+    $prompt = "Run another script?"
+    $choices = @("Yes","No")
+    $choice = Select-Option $choices $prompt
+
+    if ($choice -eq 1)
     {
-        Write-Host "One of the scripts is missing a title. Please correct and try again."
         exit
     }
-    return $titles
+    License-Menu
 }
 
-function Invoke-Script
-{
-    $dir = "C:\powershell\powershell\NewMenu\Licensing\Scripts"
-    Set-Location -LiteralPath $dir
-    read-host "Get off me"
-    invoke-expression (".\$($filenames[$option].name)")
-}
+License-Menu

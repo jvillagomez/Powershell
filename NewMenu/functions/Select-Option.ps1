@@ -38,26 +38,27 @@ Function Select-Option
     (
         [Parameter(Mandatory=$true)]
         [string[]] $options,
-        [string] $message
+        [string] $prompt
     )
     Process
     {
-        Import-Module "C:\functions\powershell\functions\DIT.psm1"
+        . "C:\Users\jvillagomez\OneDrive - ucx.ucr.edu\dave\functions\is_Numeric.ps1"
 
-        $arraySize = $options.Count
+        $title = "     " + $prompt + "     "
+        $border = "-" * $title.Length
+
         $choice = "placeholder"
         while (!(is_Numeric $choice) -or $choice -lt 0 -or $choice -gt $options.Count ){
-            clear-Host
-            Write-host $message -foregroundcolor Cyan
+            Write-host $title -foregroundcolor Cyan
             #Write-host "      Choose an option below:     " -foregroundcolor Cyan
-            Write-host "----------------------------------"
+            Write-host $border
 
             For ($i = 0; $i -lt $options.Count; $i++)
             {
                 Write-host "$($i+1). $($options[$i])"
             }
             Write-host "0. QUIT" -foregroundcolor DarkGray
-            Write-host "----------------------------------"
+            Write-host $border
             $choice = read-host "->"
             $choice = $choice.trim()
             if(!(is_Numeric $choice)){
@@ -65,6 +66,10 @@ Function Select-Option
             }
             $choice = [int]$choice
 
+        }
+        If (($choice-1) -eq -1)
+        {
+            exit
         }
         return ($choice-1)
     }

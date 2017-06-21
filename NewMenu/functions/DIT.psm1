@@ -146,7 +146,7 @@ Function Select-Folder
     }
 }
 
-Function get-Menu
+Function Select-Option
 {
     [CmdletBinding()]
     [OutputType([Nullable])]
@@ -154,26 +154,27 @@ Function get-Menu
     (
         [Parameter(Mandatory=$true)]
         [string[]] $options,
-        [string] $message
+        [string] $prompt
     )
     Process
     {
-        #Import-Module "C:\functions\powershell\functions\DIT.psm1"
+        . "C:\Users\jvillagomez\OneDrive - ucx.ucr.edu\dave\functions\is_Numeric.ps1"
 
-        $arraySize = $options.Count
+        $title = "     " + $prompt + "     "
+        $border = "-" * $title.Length
+
         $choice = "placeholder"
         while (!(is_Numeric $choice) -or $choice -lt 0 -or $choice -gt $options.Count ){
-            clear-Host
-            Write-host $message -foregroundcolor Cyan
+            Write-host $title -foregroundcolor Cyan
             #Write-host "      Choose an option below:     " -foregroundcolor Cyan
-            Write-host "----------------------------------"
+            Write-host $border
 
             For ($i = 0; $i -lt $options.Count; $i++)
             {
                 Write-host "$($i+1). $($options[$i])"
             }
             Write-host "0. QUIT" -foregroundcolor DarkGray
-            Write-host "----------------------------------"
+            Write-host $border
             $choice = read-host "->"
             $choice = $choice.trim()
             if(!(is_Numeric $choice)){
@@ -181,6 +182,10 @@ Function get-Menu
             }
             $choice = [int]$choice
 
+        }
+        If (($choice-1) -eq -1)
+        {
+            exit
         }
         return ($choice-1)
     }
@@ -257,5 +262,52 @@ Function Select-User
                 return $usersAlike[$choice]
             }
         }
+    }
+}
+
+Function Get-ScriptTitles
+{
+    Param
+    (
+        [Parameter(Mandatory=$true)]
+        $dir
+    )
+
+    Process
+    {
+        $fileCount = (Get-ChildItem $dir).Count
+        $titles = @()
+        foreach ($scriptFile in get-childitem $dir)
+        {
+            $title = ((get-content "$($scriptFile.DirectoryName)\$($scriptFile.Name)")[0 .. 10] | select-string -pattern "Title:").ToString()
+            $titles += $title.Trimstart("Title: ")
+        }
+
+        if($fileCount -ne $titles.Count)
+        {
+            Write-Host "One of the scripts is missing a title. Please correct and try again."
+            exit
+        }
+        return $titles
+    }
+
+}
+
+Function Invoke-Script
+{
+    Param
+    (
+        [Parameter(Mandatory=$true)]
+        [string]
+        $dir,
+
+        [string]
+        $choice
+    )
+    Process
+    {
+        Set-Location -LiteralPath $dir
+        $filenames = get-childitem
+        invoke-expression (".\$($filenames[$choice].name)")
     }
 }
