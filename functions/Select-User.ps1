@@ -8,7 +8,7 @@ Function Select-User
 
     Process
     {
-        . "C:\Users\jvillagomez\OneDrive - ucx.ucr.edu\dave\functions\Select-Option.ps1"
+        #Import-Module "C:\functions\powershell\functions\DIT.psm1"
 
         Write-Host "Please enter a name:" -ForegroundColor Cyan
         $SearchCriteria = Read-Host "->"

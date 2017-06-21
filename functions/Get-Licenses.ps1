@@ -22,9 +22,6 @@ Function Get-Licenses
 
     Process
     {
-        . "C:\Users\jvillagomez\OneDrive - ucx.ucr.edu\dave\functions\Connect-Msol.ps1"
-        Connect-Msol
-
         $LicenseNames = Get-MsolAccountSku
         $LicenseNames = $LicenseNames.AccountSkuId
 

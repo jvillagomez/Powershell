@@ -30,7 +30,7 @@
 
 
 #>
-Function get-Menu
+Function Select-Option
 {
     [CmdletBinding()]
     [OutputType([Nullable])]
@@ -42,7 +42,7 @@ Function get-Menu
     )
     Process
     {
-        . "C:\Users\jvillagomez\OneDrive - ucx.ucr.edu\dave\functions\is_Numeric.ps1"
+        Import-Module "C:\functions\powershell\functions\DIT.psm1"
 
         $arraySize = $options.Count
         $choice = "placeholder"

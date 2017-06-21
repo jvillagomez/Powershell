@@ -32,7 +32,7 @@ Function Get-LicensedUsers
 
     Process
     {
-        Import-Module "C:\functions\powershell\functions\DIT.psm1"
+        #Import-Module "C:\functions\powershell\functions\DIT.psm1"
         $Valid_Licenses = Get-Licenses
         if ($LicenseName)
         {
@@ -63,7 +63,7 @@ Function Get-Licenses
 
     Process
     {
-        Import-Module "C:\functions\powershell\functions\DIT.psm1"
+        #Import-Module "C:\functions\powershell\functions\DIT.psm1"
         Connect-Msol
 
         $LicenseNames = Get-MsolAccountSku
@@ -158,7 +158,7 @@ Function get-Menu
     )
     Process
     {
-        Import-Module "C:\functions\powershell\functions\DIT.psm1"
+        #Import-Module "C:\functions\powershell\functions\DIT.psm1"
 
         $arraySize = $options.Count
         $choice = "placeholder"
@@ -196,7 +196,7 @@ Function Select-User
 
     Process
     {
-        Import-Module "C:\functions\powershell\functions\DIT.psm1"
+        #Import-Module "C:\functions\powershell\functions\DIT.psm1"
 
         Write-Host "Please enter a name:" -ForegroundColor Cyan
         $SearchCriteria = Read-Host "->"

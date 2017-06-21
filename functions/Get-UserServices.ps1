@@ -10,6 +10,8 @@ Function Get-UserServices
 
     Process
     {
+        #Import-Module "C:\functions\powershell\functions\DIT.psm1"
+
         $AllLicenses = Get-Licenses
         $UserLicenses = $user.Licenses
 

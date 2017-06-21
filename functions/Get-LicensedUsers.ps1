@@ -10,7 +10,7 @@ Function Get-LicensedUsers
 
     Process
     {
-        Import-Module "C:\functions\powershell\functions\DIT.psm1"
+        #Import-Module "C:\functions\powershell\functions\DIT.psm1"
 
         $Valid_Licenses = Get-Licenses
         if ($LicenseName)
