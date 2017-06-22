@@ -49,6 +49,7 @@ Function Select-Option
 
         $choice = "placeholder"
         while (!(is_Numeric $choice) -or $choice -lt 0 -or $choice -gt $options.Count ){
+            Write-host ""
             Write-host $title -foregroundcolor Cyan
             #Write-host "      Choose an option below:     " -foregroundcolor Cyan
             Write-host $border
@@ -65,7 +66,7 @@ Function Select-Option
                 continue
             }
             $choice = [int]$choice
-
+            Write-host ""
         }
         If (($choice-1) -eq -1)
         {

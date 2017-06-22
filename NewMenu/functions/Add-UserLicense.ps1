@@ -1,3 +1,22 @@
+<#
+.SYNOPSIS
+    Connect to office365 for license manipulations.
+
+.DESCRIPTION
+    Checks for an existing connection. If not connected, prompts user for a username and password.
+
+.OUTPUTS
+    NONE
+
+.EXAMPLE
+    Connect-Msol
+
+    #If not connected:
+    #Please Supply values below:
+    #Username: jpavelski@ucx.ucr.edu
+    #Password: Pass1234
+
+#>
 Function Add-UserLicense
 {
     Param
@@ -21,7 +40,7 @@ Function Add-UserLicense
             Set-MsolUserLicense -UserPrincipalName $user.UserPrincipalName -RemoveLicenses $LicenseName
         }
 
-        $options = New-MsolLicenseOptions -AccountSkuId $LicenseName -DisabledPlans $disabled
+        $options = New-MsolLicenseOptions -AccountSkuId $LicenseName -DisabledPlans $disabledServices
         Set-MsolUserLicense -UserPrincipalName $user.UserPrincipalName -AddLicenses $LicenseName -LicenseOptions $options
     }
 

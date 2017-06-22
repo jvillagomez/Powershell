@@ -5,7 +5,7 @@ Author: Juan A Villagomez
 ----------------------------------------------------
 #>
 #=========================================================================
-$Module = ((get-item $PSScriptRoot).parent.FullName)+"\functions\DIT.psm1"
+$Module = ((get-item $PSScriptRoot).parent.parent.FullName)+"\functions\DIT.psm1"
 Import-Module $Module
 #=========================================================================
 Connect-Msol
@@ -18,14 +18,6 @@ function Choose-License
     $choice = Select-Option $LicensesAvailable.AccountSkuId $prompt
     $LicenseChosen = $LicensesAvailable[$choice]
     return $LicenseChosen
-}
-
-function Choose-Services
-{
-    # Apply parameter here for specific license chosen
-    $disabled = @()
-    $services = $license.ServiceStatus.ServicePlan.ServiceName
-
 }
 
 function Choose-Assignees
@@ -53,10 +45,31 @@ function Choose-Assignees
 function Add-License
 {
     $License = Choose-License
+    $DisabledServices = Select-Services $License
+    $LicenseObj = New-Object psobject
+    Add-Member -InputObject $LicenseObj -MemberType NoteProperty -Name LicenseName -Value $license.AccountSkuId
+    Add-Member -InputObject $LicenseObj -MemberType NoteProperty -Name LicenseOptions -Value $DisabledServices
+
     $Assignees = Choose-Assignees
 
-    $confirm
+    Write-Host "Apply:" -foregroundcolor Cyan
+    Write-Host "$($License.AccountSkuId)"
+    Write-Host "With:" -foregroundcolor Cyan
+    Write-Host "$services"
+    Write-Host "To:" -foregroundcolor Cyan
+    Write-Host "$($Assignees.UserPrincipalName)"
 
+    $prompt = "Proceed?"
+    $choices = @("Yes","No")
+    $choice = Select-Option $choices $prompt
+
+    if($choice -eq 0)
+    {
+        Foreach ($assignee in $Assignees)
+        {
+            Add-UserLicense $assignee $LicenseObj
+        }
+    }
 }
 
 $All_Users = Get-LicensedUsers

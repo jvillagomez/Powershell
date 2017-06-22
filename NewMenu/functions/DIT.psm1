@@ -158,13 +158,12 @@ Function Select-Option
     )
     Process
     {
-        . "C:\Users\jvillagomez\OneDrive - ucx.ucr.edu\dave\functions\is_Numeric.ps1"
-
         $title = "     " + $prompt + "     "
         $border = "-" * $title.Length
 
         $choice = "placeholder"
         while (!(is_Numeric $choice) -or $choice -lt 0 -or $choice -gt $options.Count ){
+            Write-host ""
             Write-host $title -foregroundcolor Cyan
             #Write-host "      Choose an option below:     " -foregroundcolor Cyan
             Write-host $border
@@ -181,7 +180,7 @@ Function Select-Option
                 continue
             }
             $choice = [int]$choice
-
+            Write-host ""
         }
         If (($choice-1) -eq -1)
         {
@@ -310,4 +309,101 @@ Function Invoke-Script
         $filenames = get-childitem
         invoke-expression (".\$($filenames[$choice].name)")
     }
+}
+
+Function Select-Services
+{
+    Param
+    (
+        # Param1 help description
+        [Parameter(Mandatory=$true)]
+        [System.Object]
+        $license
+    )
+
+    Process
+    {
+        $services = $license.ServiceStatus.ServicePlan.ServiceName
+
+        $all += "ALL"
+        $done += "Finished Selecting"
+        $services += $all
+        $services += $done
+
+        $enabled = @()
+        $disabled = @()
+        $prompt = "Select Services to ENABLE"
+        $choice = 0 #placeholder
+        while(($choice -ne -1) -and ($services[$choice] -ne $all) -and ($services[$choice] -ne $done))
+        {
+            foreach($service in $services)
+            {
+                if($enabled -contains $service)
+                {
+                    $services = $services -ne $service
+                }
+            }
+
+            Write-Host "To Enable: $enabled" -foregroundcolor Green
+            $choice = Select-Option $services $prompt
+            if($choice -eq (-1))
+            {
+                exit
+            }
+            ElseIf($services[$choice] -eq $all)
+            {
+                write-host "Chose ALL"
+                return $disabled
+            }
+            Else
+            {
+                if($services[$choice] -eq $done)
+                {
+                    continue
+                }
+                $enabled += $services[$choice]
+            }
+        }
+        Foreach ($service in $services)
+        {
+            if($service -eq $all -or $service -eq $done)
+            {
+                continue
+            }
+            if($enabled -notcontains $service)
+            {
+                $disabled += $service
+            }
+        }
+        return $disabled
+    }
+}
+
+Function Add-UserLicense
+{
+    Param
+    (
+        [Parameter(Mandatory=$true)]
+        [System.Object]
+        $user,
+
+        [System.Object]
+        $License
+    )
+
+    Process
+    {
+        $LicenseName = $License.LicenseName
+        $disabledServices = $License.LicenseOptions
+
+        $UserLicenses = $user.Licenses.AccountSkuId
+        If ($UserLicenses -contains $LicenseName)
+        {
+            Set-MsolUserLicense -UserPrincipalName $user.UserPrincipalName -RemoveLicenses $LicenseName
+        }
+
+        $options = New-MsolLicenseOptions -AccountSkuId $LicenseName -DisabledPlans $disabledServices
+        Set-MsolUserLicense -UserPrincipalName $user.UserPrincipalName -AddLicenses $LicenseName -LicenseOptions $options
+    }
+
 }
