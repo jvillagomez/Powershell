@@ -3,7 +3,7 @@
     Connect to office365 for license manipulations.
 
 .DESCRIPTION
-    Checks for an existing connection. If not connected, prompts user for a username and password.
+    Checks for an existing connection. If not connected, prompts user for a username and password. Faster than default Get-MsolConnect cmdlet.
 
 .OUTPUTS
     NONE

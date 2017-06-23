@@ -31,10 +31,8 @@ Function Select-Services
     {
         $services = $license.ServiceStatus.ServicePlan.ServiceName
 
-        $all += "ALL"
-        $done += "Finished Selecting"
-        $services += $all
-        $services += $done
+        $all, $done = "ALL","Finished Selecting"
+        $services += $all,$done
 
         $enabled = @()
         $disabled = @()

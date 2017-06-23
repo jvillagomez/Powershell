@@ -5,7 +5,7 @@ Checks if string ONLY contains numerical characters.
 .DESCRIPTION
 Checks characters inside of the input string. If anything other than numerical characters are found, returns FALSE.
 
-.PARAMETER
+.PARAMETER name
 System.String
 
 .OUTPUTS

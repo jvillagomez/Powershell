@@ -1,0 +1,44 @@
+AccountSkuId,LicenseName,ServiceId,ServiceName
+ucxucr:AAD_PREMIUM,Azure Active Directory Premium P1 ,AAD_PREMIUM,Azure Active Directory Premium Plan 1
+ucxucr:AAD_PREMIUM,Azure Active Directory Premium P1 ,MFA_PREMIUM,Azure Multi-Factor Authentication
+,,,
+ucxucr:OFFICESUBSCRIPTION_FACULTY,Office 365 ProPlus for faculty,SHAREPOINTWAC_EDU,Office Online for Education
+ucxucr:OFFICESUBSCRIPTION_FACULTY,Office 365 ProPlus for faculty,OFFICE_FORMS_PLAN_2,Microsoft Forms (Plan 2)
+ucxucr:OFFICESUBSCRIPTION_FACULTY,Office 365 ProPlus for faculty,SWAY,Sway
+ucxucr:OFFICESUBSCRIPTION_FACULTY,Office 365 ProPlus for faculty,INTUNE_O365,Mobile Device Managamenet for Office 365
+ucxucr:OFFICESUBSCRIPTION_FACULTY,Office 365 ProPlus for faculty,ONEDRIVESTANDARD,OneDrive for Business (Plan 1)
+ucxucr:OFFICESUBSCRIPTION_FACULTY,Office 365 ProPlus for faculty,OFFICESUBSCRIPTION,Office 365 ProPlus
+,,,
+ucxucr:STANDARDWOFFPACK_FACULTY,Office 365 Education for faculty,SCHOOL_DATA_SYNC_P1,School Data Sync (Plan 1)
+ucxucr:STANDARDWOFFPACK_FACULTY,Office 365 Education for faculty,STREAM_O365_E3,Microsoft Stream for O365 E3 SKU
+ucxucr:STANDARDWOFFPACK_FACULTY,Office 365 Education for faculty,TEAMS1,Microsoft Teams
+ucxucr:STANDARDWOFFPACK_FACULTY,Office 365 Education for faculty,Deskless,Microsoft StaffHub
+ucxucr:STANDARDWOFFPACK_FACULTY,Office 365 Education for faculty,FLOW_O365_P2,Flow for Office 365
+ucxucr:STANDARDWOFFPACK_FACULTY,Office 365 Education for faculty,POWERAPPS_O365_P2,PowerApps for Office 365
+ucxucr:STANDARDWOFFPACK_FACULTY,Office 365 Education for faculty,RMS_S_ENTERPRISE,Azure Rights Management
+ucxucr:STANDARDWOFFPACK_FACULTY,Office 365 Education for faculty,OFFICE_FORMS_PLAN_2,Microsoft Forms (Plan 2)
+ucxucr:STANDARDWOFFPACK_FACULTY,Office 365 Education for faculty,PROJECTWORKMANAGEMENT,Microsoft Planner
+ucxucr:STANDARDWOFFPACK_FACULTY,Office 365 Education for faculty,SWAY,Sway
+ucxucr:STANDARDWOFFPACK_FACULTY,Office 365 Education for faculty,INTUNE_O365,Mobile Device Management for Office 365
+ucxucr:STANDARDWOFFPACK_FACULTY,Office 365 Education for faculty,YAMMER_EDU,Yammer for Academic
+ucxucr:STANDARDWOFFPACK_FACULTY,Office 365 Education for faculty,SHAREPOINTWAC_EDU,Office Online for Education
+ucxucr:STANDARDWOFFPACK_FACULTY,Office 365 Education for faculty,MCOSTANDARD,Skype for Business Online (Plan 2)
+ucxucr:STANDARDWOFFPACK_FACULTY,Office 365 Education for faculty,SHAREPOINTSTANDARD_EDU,SharePoint Plan 1 for EDU
+ucxucr:STANDARDWOFFPACK_FACULTY,Office 365 Education for faculty,EXCHANGE_S_STANDARD,Exchange Online (Plan 1)
+,,,
+ucxucr:STANDARDWOFFPACK_STUDENT,Office 365 Education for students ,SCHOOL_DATA_SYNC_P1,School Data Sync (Plan 1)
+ucxucr:STANDARDWOFFPACK_STUDENT,Office 365 Education for students ,STREAM_O365_E3,Microsoft Stream for O365 E3 SKU
+ucxucr:STANDARDWOFFPACK_STUDENT,Office 365 Education for students ,TEAMS1,Microsoft Teams
+ucxucr:STANDARDWOFFPACK_STUDENT,Office 365 Education for students ,Deskless,Microsoft StaffHub
+ucxucr:STANDARDWOFFPACK_STUDENT,Office 365 Education for students ,FLOW_O365_P2,Flow for Office 365
+ucxucr:STANDARDWOFFPACK_STUDENT,Office 365 Education for students ,POWERAPPS_O365_P2,PowerApps for Office 365
+ucxucr:STANDARDWOFFPACK_STUDENT,Office 365 Education for students ,RMS_S_ENTERPRISE,Azure Rights Management 
+ucxucr:STANDARDWOFFPACK_STUDENT,Office 365 Education for students ,OFFICE_FORMS_PLAN_2,Microsoft Forms (Plan 2)
+ucxucr:STANDARDWOFFPACK_STUDENT,Office 365 Education for students ,PROJECTWORKMANAGEMENT,Microsoft Planner
+ucxucr:STANDARDWOFFPACK_STUDENT,Office 365 Education for students ,SWAY,Sway
+ucxucr:STANDARDWOFFPACK_STUDENT,Office 365 Education for students ,INTUNE_O365,Mobile Device Management for Office 365
+ucxucr:STANDARDWOFFPACK_STUDENT,Office 365 Education for students ,YAMMER_EDU,Yammer for Academic
+ucxucr:STANDARDWOFFPACK_STUDENT,Office 365 Education for students ,SHAREPOINTWAC_EDU,Office Online for Education 
+ucxucr:STANDARDWOFFPACK_STUDENT,Office 365 Education for students ,MCOSTANDARD,Skype for Business Online (Plan 2) 
+ucxucr:STANDARDWOFFPACK_STUDENT,Office 365 Education for students ,SHAREPOINTSTANDARD_EDU,SharePoint Plan 1 for EDU 
+ucxucr:STANDARDWOFFPACK_STUDENT,Office 365 Education for students ,EXCHANGE_S_STANDARD,Exchange Online (Plan 1)

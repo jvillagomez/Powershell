@@ -1,27 +1,37 @@
 <#
 .SYNOPSIS
-    Connect to office365 for license manipulations.
+    Returns collection of User Objects (Licensed users only).
 
 .DESCRIPTION
-    Checks for an existing connection. If not connected, prompts user for a username and password.
+    By default (no paramters), returns an array of user objects. Obejcts correspond to any users who hare currently licensed. When $LicenseName parameter is provided, returns all user objects that contain the respective license.
+
+.Parameter name
+    [string] $LicenseName: Optional; Should contain AccountSkuId of respective license.
 
 .OUTPUTS
-    NONE
+    Returns [System.Object] $users; an array of User Objects.
 
 .EXAMPLE
-    Connect-Msol
+    No Parameter:
+        Connect-Msol
+        $users = Get-LicensedUsers
+        # Returns array of users!
 
-    #If not connected:
-    #Please Supply values below:
-    #Username: jpavelski@ucx.ucr.edu
-    #Password: Pass1234
+    Single AccountSkuId:
+        Connect-Msol
+        $AccountSkuId
+        $users = Get-LicensedUsers
+        # Returns array of users!
 
+    Multiple AccountSkuId:
+        Connect-Msol
+        $users = Get-LicensedUsers
+        # Returns array of users!
 #>
 Function Get-LicensedUsers
 {
     Param
     (
-        # Param1 help description
         [Parameter(Mandatory=$false)]
         [string]
         $LicenseName
