@@ -1,25 +1,25 @@
 <#
 .SYNOPSIS
-    Opens a file explorer window to allow user to select a file.
+Opens a file explorer window to allow user to select a file.
 
 .DESCRIPTION
-    A file explorer window opens, when function is instantiated. Function returns complete path to file chosen.
+A file explorer window opens, when function is instantiated. Function returns complete path to file chosen.
 
 .PARAMETER Name
-    NONE
-    A parameter can be implemented to determine where file explorer window opens (root dir). Default is set to "Desktop".
+NONE
+A parameter can be implemented to determine where file explorer window opens (root dir). Default is set to "Desktop".
 
 .OUTPUTS
-    System.String
-    The string conatins the path to file chosen.
+[System.String]
+The string conatins the path to file chosen.
 
 .EXAMPLE
-    $filePath = Select-Folder
+$filePath = Select-Folder
 
-    #Dialog window opens
-    #User navigates and chooses DIR of interest
+#Dialog window opens
+#User navigates and chooses DIR of interest
 
-    Write-Host $filePath  #Output = > "C:\some\path\that\you\choose"
+Write-Host $filePath  #Output = > "C:\some\path\that\you\choose"
 #>
 
 Function Select-File

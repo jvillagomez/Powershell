@@ -1,20 +1,18 @@
 <#
 .SYNOPSIS
-    Connect to office365 for license manipulations.
+Enter full or partial name (or email) of a user to retrieve corresponding user object.
 
 .DESCRIPTION
-    Checks for an existing connection. If not connected, prompts user for a username and password.
+Function will match user search string to any name (email) that contains that string. Returns all possible matches in a menu for the user to select the correct one.
+
+
+.Parameter anme
+
 
 .OUTPUTS
-    NONE
+Returns a user object corresponding
 
 .EXAMPLE
-    Connect-Msol
-
-    #If not connected:
-    #Please Supply values below:
-    #Username: jpavelski@ucx.ucr.edu
-    #Password: Pass1234
 
 #>
 Function Select-User
@@ -57,7 +55,7 @@ Function Select-User
             }
             else
             {
-                exit
+                return
             }
         }
 
@@ -80,7 +78,7 @@ Function Select-User
                 }
                 else
                 {
-                    exit
+                    return
                 }
             }
             else

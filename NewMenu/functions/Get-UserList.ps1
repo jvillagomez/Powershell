@@ -1,22 +1,24 @@
 <#
 .SYNOPSIS
-    Connect to office365 for license manipulations.
+    Creates User Objects form a text file containing names.
 
 .DESCRIPTION
-    Checks for an existing connection. If not connected, prompts user for a username and password.
+    Opens up a file explorer window, allowing the user to select the txt file. Reads the file for UserPrincipalNames (emails), and returns the user object of each respective name. Must provide array of all available users objuects for matching to occur.
+
+.Parameter name
+    [System.Objects] Mandatory; Array of all user objects available.
 
 .OUTPUTS
-    NONE
+    Returns an array of User Objects.
 
 .EXAMPLE
     Connect-Msol
+    $users = Get-Licensedusers
+    $UsersList = Get-UsersFromList $users
 
-    #If not connected:
-    #Please Supply values below:
-    #Username: jpavelski@ucx.ucr.edu
-    #Password: Pass1234
-
+    # UsersList contains all import users only!
 #>
+
 Function Get-UsersFromList
 {
     Param

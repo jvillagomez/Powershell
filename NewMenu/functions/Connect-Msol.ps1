@@ -1,21 +1,23 @@
 <#
 .SYNOPSIS
-    Connect to office365 for license manipulations.
+Connect to office365 for license manipulations.
 
 .DESCRIPTION
-    Checks for an existing connection. If not connected, prompts user for a username and password. Faster than default Get-MsolConnect cmdlet.
+Checks for an existing connection. If not connected, prompts user for a username and password. Faster than default Get-MsolConnect cmdlet.
+
+.Parameter name
+NONE
 
 .OUTPUTS
-    NONE
+NONE
 
 .EXAMPLE
-    Connect-Msol
+Connect-Msol
 
-    #If not connected:
-    #Please Supply values below:
-    #Username: jpavelski@ucx.ucr.edu
-    #Password: Pass1234
-
+#If not connected:
+#Please Supply values below:
+#Username: jpavelski@ucx.ucr.edu
+#Password: Pass1234
 #>
 Function Connect-Msol
 {

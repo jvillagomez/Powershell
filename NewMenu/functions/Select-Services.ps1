@@ -1,27 +1,26 @@
+#TODO
+
 <#
 .SYNOPSIS
-    Connect to office365 for license manipulations.
+Obtains user desired License Options (services) using a menu.
 
 .DESCRIPTION
-    Checks for an existing connection. If not connected, prompts user for a username and password.
+Given a license as an argument, will prompt user with a menu for selecting services to be ENABLED.
+User may enter as many options as desired, each separated by a space. If a single option is invalid, user will be prompted to enter selections again.
+
+.Parameter name
+[System.Object] $license: License object must be provided to provide context for available services.
 
 .OUTPUTS
-    NONE
+Returns an aray containg services to be disabled (inverse from services chosen by suer in menu). This is due to the way powershell must go about enabling/disbaling licenses/services.
 
 .EXAMPLE
-    Connect-Msol
-
-    #If not connected:
-    #Please Supply values below:
-    #Username: jpavelski@ucx.ucr.edu
-    #Password: Pass1234
 
 #>
 Function Select-Services
 {
     Param
     (
-        # Param1 help description
         [Parameter(Mandatory=$true)]
         [System.Object]
         $license
@@ -52,7 +51,7 @@ Function Select-Services
             $choice = Select-Option $services $prompt
             if($choice -eq (-1))
             {
-                exit
+                return
             }
             ElseIf($services[$choice] -eq $all)
             {

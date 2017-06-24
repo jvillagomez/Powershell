@@ -1,4 +1,4 @@
-#TODO update these functions 
+#TODO update these functions
 Function Connect-Msol
 {
     Param
@@ -71,6 +71,47 @@ Function Get-Licenses
         $LicenseNames = $LicenseNames.AccountSkuId
 
         return $LicenseNames
+    }
+}
+
+Function Get-UserServices
+{
+    Param
+    (
+        [Parameter(Mandatory=$true)]
+        [System.Object]
+        $user
+    )
+
+    Process
+    {
+        $AllLicenses = Get-Licenses
+        $UserLicenses = $user.Licenses
+
+        $UserServices = @()
+
+        Foreach ($license in $UserLicenses)
+        {
+            $LicenseObj = New-Object psobject
+
+            $DisabledServices = @()
+            $LicenseServices = $license.ServiceStatus
+            $i=0
+            Foreach ($service in $LicenseServices)
+            {
+                $i++
+                $isDisabled = ($service.ProvisioningStatus) -ne "Success" -and ($service.ProvisioningStatus) -ne "PendingInput"
+                If ($isDisabled)
+                {
+                    $DisabledServices += ($service.ServicePlan.ServiceName)
+                }
+            }
+            Add-Member -InputObject $LicenseObj -MemberType NoteProperty -Name LicenseName -Value $license.AccountSkuId
+            Add-Member -InputObject $LicenseObj -MemberType NoteProperty -Name LicenseOptions -Value $DisabledServices
+
+            $UserServices += $LicenseObj
+        }
+        return $UserServices
     }
 }
 
@@ -309,6 +350,48 @@ Function Invoke-Script
         Set-Location -LiteralPath $dir
         $filenames = get-childitem
         invoke-expression (".\$($filenames[$choice].name)")
+    }
+}
+
+Function Select-License
+{
+    Param
+    (
+    )
+
+    Process
+    {
+        $LicensesAvailable = Get-MsolAccountSku
+
+        $all, $done = "All", "Finished Selecting"
+        $LicensesAvailable = $LicensesAvailable += $all,$done
+
+        $LicensesToApply = @()
+        $prompt = "Select Licence(s) to ENABLE"
+        $choice = 0 #placeholder
+        while(($choice -ne -1) -and ($LicensesAvailable[$choice] -ne $all) -and ($LicensesAvailable[$choice] -ne $done))
+        {
+            Write-Host "To Enable:" -foregroundcolor Green
+            Write-Output $enabled
+            $choice = Select-Option $LicensesAvailable $prompt
+            if($choice -eq (-1))
+            {
+                exit
+            }
+            ElseIf($LicensesAvailable[$choice] -eq $all)
+            {
+                return $LicensesAvailable
+            }
+            Else
+            {
+                if($LicensesAvailable[$choice] -eq $done)
+                {
+                    continue
+                }
+                $LicensesToApply += $LicensesAvailable[$choice]
+            }
+        }
+        return $LicensesToApply
     }
 }
 

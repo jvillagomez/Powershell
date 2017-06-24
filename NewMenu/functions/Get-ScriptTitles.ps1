@@ -1,21 +1,30 @@
 <#
 .SYNOPSIS
-    Connect to office365 for license manipulations.
+Grab tiles from all scripts in a given directory
 
 .DESCRIPTION
-    Checks for an existing connection. If not connected, prompts user for a username and password.
+Given a directory path, will copy all titles from .ps1 file headers. Use in providing a menu for Invoke-Script function (Calling other scripts).
+All scripts in given directory MUST have a title, or error will be thrown. All scripts must contain a title to avoid any indexing errors
+
+.Parameter name
+[System.Sring] $dir: string containing the path containing ps1 scripts.
 
 .OUTPUTS
-    NONE
-
+Returns an array of strings (script titles).
+ 
 .EXAMPLE
-    Connect-Msol
+Connect-Msol
+$PathToScripts = "C:\PowerShell\module"
+$titles = Get-ScriptTitles
+Write-Host $titles
 
-    #If not connected:
-    #Please Supply values below:
-    #Username: jpavelski@ucx.ucr.edu
-    #Password: Pass1234
 
+# Check STAFFHUB status (single)
+# Report STAFFHUB users (all)
+# Remove STAFFHUB user (single)
+# Remove STAFFHUB users (bulk)
+# Set STAFFHUB user (single)
+# Set STAFFHUB users (bulk)
 #>
 Function Get-ScriptTitles
 {
@@ -38,9 +47,11 @@ Function Get-ScriptTitles
         if($fileCount -ne $titles.Count)
         {
             Write-Host "One of the scripts is missing a title. Please correct and try again."
-            exit
         }
-        return $titles
+        else
+        {
+            return $titles
+        }
     }
 
 }

@@ -1,24 +1,23 @@
 <#
 .SYNOPSIS
-    Menu for selecting License(s).
+Menu for selecting License(s).
 
 .DESCRIPTION
-    Prompts user with a menu to select license(s). Grabs available licenses using 'Get-MsolAccountSku', so it wont break with newly added license types.
+Prompts user with a menu to select license(s). Grabs available licenses using 'Get-MsolAccountSku', so it wont break with newly added license types.
+
+.Parameter name
+NONE
 
 .OUTPUTS
-    Array of License Custom PS-Objects.
-
+Array of License Custom PS-Objects.
 
 .EXAMPLE
-    Connect-Msol
-
-    #If not connected:
-    #Please Supply values below:
-    #Username: jpavelski@ucx.ucr.edu
-    #Password: Pass1234
+Connect-Msol
+$licenses = Select-License
+$licenses # writes objects to console
 
 #>
-Function Select-Services
+Function Select-License
 {
     Param
     (
@@ -32,16 +31,17 @@ Function Select-Services
         $LicensesAvailable = $LicensesAvailable += $all,$done
 
         $LicensesToApply = @()
-        $prompt = "Select Licence(s) to ENABLE"
+        $prompt = "Select License(s) to ENABLE"
         $choice = 0 #placeholder
         while(($choice -ne -1) -and ($LicensesAvailable[$choice] -ne $all) -and ($LicensesAvailable[$choice] -ne $done))
         {
             Write-Host "To Enable:" -foregroundcolor Green
             Write-Output $enabled
-            $choice = Select-Option $LicensesAvailable $prompt
+            write-host $LicensesAvailable.AccountSkuId
+            $choice = Select-Option $LicensesAvailable.AccountSkuId $prompt
             if($choice -eq (-1))
             {
-                exit
+                return
             }
             ElseIf($LicensesAvailable[$choice] -eq $all)
             {
@@ -59,3 +59,5 @@ Function Select-Services
         return $LicensesToApply
     }
 }
+
+Select-License

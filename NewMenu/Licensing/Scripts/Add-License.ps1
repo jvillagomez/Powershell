@@ -4,10 +4,8 @@ Title: Add License to User(s)
 Author: Juan A Villagomez
 ----------------------------------------------------
 #>
-#=========================================================================
-$Module = ((get-item $PSScriptRoot).parent.parent.FullName)+"\functions\DIT.psm1"
-Import-Module $Module
-#=========================================================================
+$Module = ((get-item $PSScriptRoot).parent.parent.FullName)+"\functions\DIT.psm1" #Dont remove
+Import-Module $Module #Dont remove
 Connect-Msol
 
 function Choose-License

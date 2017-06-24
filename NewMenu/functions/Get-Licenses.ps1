@@ -1,18 +1,24 @@
 <#
 .SYNOPSIS
-    Short description
+    Returns all available license names.
 
 .DESCRIPTION
-    Long description
+    returns the AccountSkuId for all available licenszes. To be used for validation or menu options.
 
 .OUTPUTS
-    The value returned by this cmdlet
+    Returns array of strings (AccountSkuIds).
 
 .EXAMPLE
-    Example of how to use this cmdlet
+    Connect-Msol
 
-.LINK
-    To other relevant cmdlets or help
+    $licensesAvail = Get-Licenses
+    Write-Host $licensesAvail
+
+    # ucxucr:AAD_PREMIUM
+    # ucxucr:OFFICESUBSCRIPTION_FACULTY
+    # ucxucr:STANDARDWOFFPACK_FACULTY
+    # ucxucr:RIGHTSMANAGEMENT_STANDARD_FACULTY
+    # ucxucr:STANDARDWOFFPACK_STUDENT
 #>
 Function Get-Licenses
 {

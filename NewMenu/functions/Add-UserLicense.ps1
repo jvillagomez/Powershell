@@ -1,66 +1,67 @@
 <#
 .SYNOPSIS
-    Add single license to user(s).
+Add single license to user(s).
 
 .DESCRIPTION
-    Adds a license to selected user(s). If user already has a given license, it will remove it beforehand, and apply the new accordingly.
-    Must provide:
-    1. A User Object
-    2. Custom PS-Object w/members:
-        LicenseName
-        LicenseOptions
+Adds a license to selected user(s). If user already has a given license, it will remove it beforehand, and apply the new accordingly.
+Must provide:
+1. A User Object
+2. Custom PS-Object w/members:
+    LicenseName
+    LicenseOptions
 
 .PARAMETER name
-    [System.Object] $user: User object. Will fail if => ( $user.GetType() -ne System.Object )
-    [System.Object] $License: Custom PS-Object. Members include LicenseName and LicenseOptions. Will fail if => ( $License.GetType() -ne System.Object )
+[System.Object] $user: User object. Will fail if => ( $user.GetType() -ne System.Object )
+[System.Object] $License: Custom PS-Object. Members include LicenseName and LicenseOptions. Will fail if => ( $License.GetType() -ne System.Object )
 
 .OUTPUTS
-    NONE. Nothing returned.
+NONE. Nothing returned.
 
 .EXAMPLE
-    Single User (Single-License):
-        $users = Get-LicensedUsers   #Get all user objects
-        $user = Select-User $users   #Get specific User
-        $License = Select-License   #Select a single license
-        $services = $Select-Services $License
+Single User (Single-License):
+    $users = Get-LicensedUsers   #Get all user objects
+    $user = Select-User $users   #Get specific User
+    $License = Select-License   #Select a single license
+    $services = $Select-Services $License
 
-        $LicenseObject = New-Object psobject    #Create License Custom PS-Object
-        Add-Member -InputObject $LicenseObject -MemberType NoteProperty -Name LicenseName -Value $license.AccountSkuId
-        Add-Member -InputObject $LicenseObject -MemberType NoteProperty -Name LicenseOptions -Value $DisabledServices
+    $LicenseObject = New-Object psobject    #Create License Custom PS-Object
+    Add-Member -InputObject $LicenseObject -MemberType NoteProperty -Name LicenseName -Value $license.AccountSkuId
+    Add-Member -InputObject $LicenseObject -MemberType NoteProperty -Name LicenseOptions -Value $DisabledServices
 
+    Add-UserLicense $user $LicenseObject
+    # User is Now licensed!
+------------------------------------------
+In Loop (Multiple-User, Single-Sicense):
+    $users = Get-LicensedUsers   # Get all user objects
+    $License = Select-License
+    $services = Select-Services $License
+
+    $LicenseObject = New-Object psobject
+    Add-Member -InputObject $LicenseObject -MemberType NoteProperty -Name LicenseName -Value $license.AccountSkuId
+    Add-Member -InputObject $LicenseObject -MemberType NoteProperty -Name LicenseOptions -Value $services
+
+    foreach($user in $users)
+    {
         Add-UserLicense $user $LicenseObject
-        # User is Now licensed!
-    ------------------------------------------
-    In Loop (Multiple-User, Single-Sicense):
-        $users = Get-LicensedUsers   # Get all user objects
-        $License = Select-License
-        $services = $Select-Services $License
+    }
+    # Users are Now licensed!
+------------------------------------------
+In Loop (Multiple-User, Multiple-License):
+    $users = Get-LicensedUsers   # Get all user objects
+    $Licenses = Select-License
 
-        $LicenseObject = New-Object psobject
-        Add-Member -InputObject $LicenseObject -MemberType NoteProperty -Name LicenseName -Value $license.AccountSkuId
-        Add-Member -InputObject $LicenseObject -MemberType NoteProperty -Name LicenseOptions -Value $DisabledServices
-
-        foreach($user in $users)
+    foreach ($user in $users)
+    {
+        foreach($license in $Licenses)
         {
-            Add-UserLicense $user $LicenseObject
-        }
-        # Users are Now licensed!
-    ------------------------------------------
-    In Loop (Multiple-User, Multiple-License):
-    #TODO find a way to implement this
-        $users = Get-LicensedUsers   # Get all user objects
-        $Licenses = Select-License
-        $services = $Select-Services $License
+            $services = Select-Services $license
 
-        $LicenseObject = New-Object psobject
-        Add-Member -InputObject $LicenseObject -MemberType NoteProperty -Name LicenseName -Value $license.AccountSkuId
-        Add-Member -InputObject $LicenseObject -MemberType NoteProperty -Name LicenseOptions -Value $DisabledServices
-
-        foreach($user in $users)
-        {
-            Add-UserLicense $user $LicenseObject
+            $LicenseObject = New-Object psobject
+            Add-Member -InputObject $LicenseObject -MemberType NoteProperty -Name LicenseName -Value $license.AccountSkuId
+            Add-Member -InputObject $LicenseObject -MemberType NoteProperty -Name LicenseOptions -Value $services
         }
-        # Users are Now licensed!
+    }
+    # All licenses have been applied to all users!
 
 #>
 Function Add-UserLicense

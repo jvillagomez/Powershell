@@ -1,27 +1,33 @@
 <#
 .SYNOPSIS
-    Connect to office365 for license manipulations.
+Extracts user license/services information.
 
 .DESCRIPTION
-    Checks for an existing connection. If not connected, prompts user for a username and password.
+Provided a user (User Object), will grab their licenses and respective license options (services). not hard-coded, so it will not break when new services are added.
+
+.Parameter name
+[System.Object] $user: User Object to extract information from.
 
 .OUTPUTS
-    NONE
+Returns an array containing a custom PS-Object for each licnese the user contains. License objects contain an AccountSkuId and its respective disabled services.
 
 .EXAMPLE
-    Connect-Msol
+Connect-Msol
+$users = get-LicensedUsers
+$user = Select-User $users
+$LicSerInfo = Get-UserServices $user
+Write-Host $LicSerInfo
 
-    #If not connected:
-    #Please Supply values below:
-    #Username: jpavelski@ucx.ucr.edu
-    #Password: Pass1234
-
+# LicenseName                              LicenseOptions
+# -----------                              --------------
+# ucxucr:STANDARDWOFFPACK_FACULTY          {SCHOOL_DATA_SYNC_P1, STREAM_O365_E3, INTUNE_O365}
+# ucxucr:RIGHTSMANAGEMENT_STANDARD_FACULTY {}
+# ucxucr:AAD_PREMIUM                       {EXCHANGE_S_FOUNDATION}
 #>
 Function Get-UserServices
 {
     Param
     (
-
         [Parameter(Mandatory=$true)]
         [System.Object]
         $user
@@ -29,8 +35,6 @@ Function Get-UserServices
 
     Process
     {
-        #Import-Module "C:\functions\powershell\functions\DIT.psm1"
-
         $AllLicenses = Get-Licenses
         $UserLicenses = $user.Licenses
 
@@ -59,5 +63,4 @@ Function Get-UserServices
         }
         return $UserServices
     }
-
 }
